@@ -39,7 +39,8 @@ def Update(deltaTime):
     # IBlock.Update(deltaTime)
     # OBlock.Update(deltaTime)
     # TBlock.Update(deltaTime)
-    SBlock.Update(deltaTime)
+    # SBlock.Update(deltaTime)
+    ZBlock.Update(deltaTime)
     return True
 
 
@@ -50,7 +51,8 @@ def Render():
     # IBlock.Render()
     # OBlock.Render()
     # TBlock.Render()
-    SBlock.Render()
+    # SBlock.Render()
+    ZBlock.Render()
     pygame.display.flip()
     pass
 
