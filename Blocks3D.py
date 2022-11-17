@@ -5,7 +5,7 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 
 from SlowCube import SlowCube
-from TetrisPieces import I, O
+from TetrisPieces import I, O, T, S, Z, J, L
 
 # Main Init
 pygame.init()
@@ -22,8 +22,13 @@ glDepthFunc(GL_LESS)
 glTranslate(0.0, 0.0, -10)
 
 cube = SlowCube()
-i = I()
-o = O()
+IBlock = I()
+OBlock = O()
+TBlock = T()
+SBlock = S()
+ZBlock = Z()
+JBlock = J()
+LBlock = L()
 
 
 def Update(deltaTime):
@@ -31,8 +36,9 @@ def Update(deltaTime):
         if event.type == pygame.QUIT:
             return False
     cube.Update(deltaTime)
-    i.Update(deltaTime)
-    o.Update(deltaTime)
+    # IBlock.Update(deltaTime)
+    # OBlock.Update(deltaTime)
+    # TBlock.Update(deltaTime)
     return True
 
 
@@ -40,8 +46,9 @@ def Render():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
     # cube.Render()
-    i.Render()
-    o.Render()
+    # IBlock.Render()
+    # OBlock.Render()
+    # TBlock.Render()
     pygame.display.flip()
     pass
 
