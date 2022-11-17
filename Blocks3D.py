@@ -38,7 +38,7 @@ def Update(deltaTime):
     cube.Update(deltaTime)
     # IBlock.Update(deltaTime)
     # OBlock.Update(deltaTime)
-    # TBlock.Update(deltaTime)
+    TBlock.Update(deltaTime)
     return True
 
 
@@ -48,7 +48,7 @@ def Render():
     # cube.Render()
     # IBlock.Render()
     # OBlock.Render()
-    # TBlock.Render()
+    TBlock.Render()
     pygame.display.flip()
     pass
 
