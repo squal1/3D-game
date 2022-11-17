@@ -51,7 +51,22 @@ class I(TetrisPieces):
 
 
 class O(TetrisPieces):
-    pass
+    def __init__(self):
+        verts = np.asfarray([(-1, -1, 0),
+                             (1, -1, 0),
+                             (-1, 1, 0),
+                             (1, 1, 0),
+                             (-1, -1, 1),
+                             (1, -1, 1),
+                             (-1, 1, 1),
+                             (1, 1, 1)])
+        surfaces = np.array([(0, 1, 2, 3),
+                             (3, 2, 7, 6),
+                             (6, 7, 5, 4),
+                             (4, 5, 1, 0),
+                             (1, 5, 7, 3),
+                             (4, 0, 2, 6)])
+        super().__init__(verts, surfaces)
 
 
 class T(TetrisPieces):

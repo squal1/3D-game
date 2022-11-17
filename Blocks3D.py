@@ -5,7 +5,7 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 
 from SlowCube import SlowCube
-from TetrisPieces import I
+from TetrisPieces import I, O
 
 # Main Init
 pygame.init()
@@ -23,6 +23,7 @@ glTranslate(0.0, 0.0, -10)
 
 cube = SlowCube()
 i = I()
+o = O()
 
 
 def Update(deltaTime):
@@ -31,6 +32,7 @@ def Update(deltaTime):
             return False
     cube.Update(deltaTime)
     i.Update(deltaTime)
+    o.Update(deltaTime)
     return True
 
 
@@ -39,6 +41,7 @@ def Render():
 
     # cube.Render()
     i.Render()
+    o.Render()
     pygame.display.flip()
     pass
 
