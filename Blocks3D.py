@@ -35,26 +35,26 @@ def Update(deltaTime):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             return False
-    cube.Update(deltaTime)
-    # IBlock.Update(deltaTime)
-    # OBlock.Update(deltaTime)
-    # TBlock.Update(deltaTime)
-    # SBlock.Update(deltaTime)
-    # ZBlock.Update(deltaTime)
-    # JBlock.Update(deltaTime)
+    IBlock.Update(deltaTime)
+    OBlock.Update(deltaTime)
+    TBlock.Update(deltaTime)
+    SBlock.Update(deltaTime)
+    ZBlock.Update(deltaTime)
+    JBlock.Update(deltaTime)
+    LBlock.Update(deltaTime)
     return True
 
 
 def Render():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
-    # cube.Render()
-    # IBlock.Render()
-    # OBlock.Render()
-    # TBlock.Render()
-    # SBlock.Render()
-    # ZBlock.Render()
-    # JBlock.Render()
+    IBlock.Render()
+    OBlock.Render()
+    TBlock.Render()
+    SBlock.Render()
+    ZBlock.Render()
+    JBlock.Render()
+    LBlock.Render()
     pygame.display.flip()
     pass
 
