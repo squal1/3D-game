@@ -77,7 +77,7 @@ _gTickLastFrame = pygame.time.get_ticks()
 _gDeltaTime = 0.0
 
 while Update(_gDeltaTime):
-    Render(screen)
+    Render()
     t = pygame.time.get_ticks()
     _gDeltaTime = (t - _gTickLastFrame) / 1000.0
     _gTickLastFrame = t

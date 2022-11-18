@@ -1,5 +1,4 @@
 freetype_py==2.3.0
 numpy==1.23.3
-Pillow==9.3.0
 pygame==2.1.2
 PyOpenGL==3.1.6
