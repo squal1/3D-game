@@ -4,11 +4,13 @@ from pygame.locals import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
+import UI.UI as UI
 from SlowCube import SlowCube
 from TetrisPieces import I, O, T, S, Z, J, L
 
 # Main Init
 pygame.init()
+UI.init()
 size = width, height = 640, 750
 screen = pygame.display.set_mode(size, DOUBLEBUF | OPENGL)
 
@@ -42,10 +44,11 @@ def Update(deltaTime):
     ZBlock.Update(deltaTime)
     JBlock.Update(deltaTime)
     LBlock.Update(deltaTime)
+    UI.Update(deltaTime)
     return True
 
 
-def Render():
+def Render(screen):
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
     IBlock.Render()
@@ -55,8 +58,8 @@ def Render():
     ZBlock.Render()
     JBlock.Render()
     LBlock.Render()
+    UI.Render(screen)
     pygame.display.flip()
-    pass
 
 
 _gTickLastFrame = pygame.time.get_ticks()
