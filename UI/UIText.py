@@ -1,43 +1,59 @@
+import numpy as np
+import pygame
+from pygame.locals import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
-from OpenGL.GL import shaders
 
-import freetype as ft
+from freetype import *
+import UI.UICommon as UICommon
+
 
 class UIText():
-    def __init__(self, text = None):
-        self.face = ft.Face(r'C:\Windows\Fonts\arial.ttf')
-        self.face.set_char_size(48*64)
-        self.face.load_char('S')
-        #face.load_char('S', ft.FT_LOAD_FLAGS['FT_LOAD_DEFAULT'])
-        # Add Stroke
-        # stroker = ft.Stroker()
-        # stroker.set(1, ft.FT_STROKER_LINECAPS['FT_STROKER_LINECAP_ROUND'], ft.FT_STROKER_LINEJOINS['FT_STROKER_LINEJOIN_ROUND'], 0)
-        # override default load flags to avoid rendering the character during loading
-        # initialize C FreeType Glyph object
-        # glyph = ft.FT_Glyph()
-        # # get every glyph from the face
-        # ft.FT_Get_Glyph(face.glyph._FT_GlyphSlot, ft.byref(glyph))
-        # # initialize Python FreeType Glyph object
-        # glyph = ft.Glyph(glyph)
-        # # stroke border and check errors
-        # error = ft.FT_Glyph_StrokeBorder(ft.byref(glyph._FT_Glyph), stroker._FT_Stroker, False, False)
-        # if error:
-        #     raise ft.FT_Exception(error)
-        # # bitmapGlyph is the rendered glyph that we want
-        # bitmapGlyph = glyph.to_bitmap(ft.FT_RENDER_MODES['FT_RENDER_MODE_NORMAL'], 0)
+    def __init__(self, text = "", x = 0, y = UICommon.ScreenSize[1], align = "left", valign = "top", font = 'arial'):
+        self.text = text
+        # origin in bottom left
+        self.align, self.valign = align, valign
+        self.x, self.y = x, y
+        self.font = pygame.font.SysFont(font, 64)
+        self.textSurface = self.font.render(self.text, True, (255, 255, 255, 255), (0, 0, 0, 0))
+        # text color, bg color
+        # Get width and height
+        self.width, self.height = self.textSurface.get_width(), self.textSurface.get_height()
+        self.textData = pygame.image.tostring(self.textSurface, "RGBA", True)
+        
         
 
-        pass
+    def _DrawText(self):
+        glDrawPixels(self.width, self.height, GL_RGBA, GL_UNSIGNED_BYTE, self.textData)
 
     def Update(self, deltaTime):
         pass
         #super().Update(deltaTime)
 
-    def Render(self, screen):
-        # m = glGetDouble(GL_MODELVIEW_MATRIX)
-        # glRotatef(self.ang, *self.axis)
-        # glLoadMatrixf(m)
-        bitmap = self.face.glyph.bitmap
-        print (bitmap.buffer)
+    def Render(self):
+        if self.align == "left":
+            self.x = 0
+        elif self.align == "center":
+            self.x = UICommon.ScreenSize[0]/2-self.textSurface.get_width()/2
+        elif self.align == "right":
+            self.x = UICommon.ScreenSize[0] - self.textSurface.get_width()
+        if self.valign == "top":
+            self.y = UICommon.ScreenSize[1] - self.textSurface.get_height()
+        elif self.valign == "center":
+            self.y = UICommon.ScreenSize[1]/2-self.textSurface.get_height()/2
+        elif self.valign == "bottom":
+            self.y = 0
+        glWindowPos2d(self.x, self.y)
+        self._DrawText()
         #super().Render(screen)
+
+    
+
+   
+
+
+
+        
+
+        
+

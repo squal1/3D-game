@@ -1,12 +1,10 @@
 from OpenGL.GL import *
 from OpenGL.GLU import *
-from OpenGL.GL import shaders
 
 #Text
 from UI.UIText import UIText
-
 #Image
-from PIL import Image
+from UI.UIImage import UIImage
 
 def init():
     global _uiObjects
@@ -16,20 +14,19 @@ def init():
     _uiIds = {}
     _uiNames = {}
 
-    helloworld = UIText("Hello World")
+    helloworld = UIText("Hello World",align= "center")
     _uiObjects.append(helloworld)
 
-    pass
 
 def Update(deltaTime):
     global _uiObjects
     for i in _uiObjects:
         i.Update(deltaTime)
 
-def Render(screen):
+def Render():
     global _uiObjects
     for i in _uiObjects:
-        i.Render(screen)
+        i.Render()
 
 def Cleanup():
     pass
