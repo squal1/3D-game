@@ -44,6 +44,9 @@ class I(TetrisPieces):
         color = np.asfarray([0.5, 1, 1])  # Light Blue
         super().__init__(verts, surfaces, color)
 
+    def Update(self, deltaTime):
+        self.ang += 10.0 * deltaTime
+
 
 class O(TetrisPieces):
     def __init__(self):
@@ -57,6 +60,9 @@ class O(TetrisPieces):
                              (4, 0, 2, 6)])
         color = np.asfarray([1, 1, 0])  # Yellow
         super().__init__(verts, surfaces, color)
+
+    def Update(self, deltaTime):
+        self.ang += 20.0 * deltaTime
 
 
 class T(TetrisPieces):
@@ -78,6 +84,9 @@ class T(TetrisPieces):
         color = np.asfarray([1, 0, 1])  # Purple
         super().__init__(verts, surfaces, color)
 
+    def Update(self, deltaTime):
+        self.ang += 30.0 * deltaTime
+
 
 class S(TetrisPieces):
     def __init__(self):
@@ -97,6 +106,9 @@ class S(TetrisPieces):
                              (0, 7, 15, 8)])
         color = np.asfarray([1, 0, 0])  # Red
         super().__init__(verts, surfaces, color)
+
+    def Update(self, deltaTime):
+        self.ang += 40.0 * deltaTime
 
 
 class Z(TetrisPieces):
@@ -118,6 +130,9 @@ class Z(TetrisPieces):
         color = np.asfarray([0, 1, 0])
         super().__init__(verts, surfaces, color)
 
+    def Update(self, deltaTime):
+        self.ang += 50.0 * deltaTime
+
 
 class J(TetrisPieces):
     def __init__(self):
@@ -136,11 +151,14 @@ class J(TetrisPieces):
         color = np.asfarray([0, 0, 1])
         super().__init__(verts, surfaces, color)
 
+    def Update(self, deltaTime):
+        self.ang += 60.0 * deltaTime
+
 
 class L(TetrisPieces):
     def __init__(self):
         verts = np.asfarray([(0, 0, 0), (1, 0, 0), (1, -1, 0), (0, -1, 0), (-1, -1, 0), (-1, 2, 0), (0, 2, 0),
-                             (0, 0, 1), (1, 0, 1), (1, -1, 1), (0, -1, 1), (1, -1, 1), (1, 2, 1), (0, 2, 1)])
+                             (0, 0, 1), (1, 0, 1), (1, -1, 1), (0, -1, 1), (-1, -1, 1), (-1, 2, 1), (0, 2, 1)])
         surfaces = np.array([(0, 1, 2, 3),
                              (3, 4, 5, 6),
                              (7, 8, 9, 10),
@@ -153,3 +171,6 @@ class L(TetrisPieces):
                              (0, 6, 13, 7)])
         color = np.asfarray([1, 0.5, 0])
         super().__init__(verts, surfaces, color)
+
+    def Update(self, deltaTime):
+        self.ang += 70.0 * deltaTime
