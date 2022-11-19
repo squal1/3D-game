@@ -22,8 +22,8 @@ def Update(deltaTime):
     global _pos
 
     _pos[1] -= 1 * deltaTime
-    if _pos[1] <= -5:
-        _pos[1] = 7
+    if _pos[1] <= -5:  # If height of the block <= -5
+        _pos[1] = 7  # Reset block to top
 
     _cube.Update(deltaTime)
 

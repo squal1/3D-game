@@ -5,6 +5,15 @@ import math
 from OpenGL.arrays import vbo
 from OpenGL.GL import shaders
 
+#def Init():
+#np.asfarray([0.5, 1, 1])  # Light Blue
+#np.asfarray([1, 1, 0])  # Yellow
+#np.asfarray([1, 0, 1])  # Purple
+#np.asfarray([1, 0, 0])  # Red
+#np.asfarray([0, 1, 0])  # Green
+#np.asfarray([0, 0, 1])  # Blue
+#np.asfarray([1, 0.5, 0])  # Orange
+
 class Cube:
     def __init__(self):
         color = np.asfarray([0,0,1])
@@ -86,7 +95,7 @@ class Cube:
                 glVertexAttribPointer(self.position, 3, GL_FLOAT, False, stride, self.vbo)
                 glVertexAttribPointer(self.color, 3, GL_FLOAT, False, stride, self.vbo+12)
                 glVertexAttribPointer(self.vertex_normal, 3, GL_FLOAT, True, stride, self.vbo)
-                glDrawArrays (GL_QUADS, 0, 24)
+                glDrawArrays(GL_QUADS, 0, 24)
 
             finally:
                 self.vbo.unbind()
