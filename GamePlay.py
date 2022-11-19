@@ -4,7 +4,7 @@ import numpy as np
 import math
 import random
 
-import UI.UI
+import UI.UI as UI
 import UI.UICommon as UICommon
 import Cube
 
@@ -37,10 +37,14 @@ def Update(deltaTime):
 
     
     if not UICommon.Paused:
-        _pos[1] -= 1 * deltaTime
-        if _pos[1] <= -5:
-            _pos[1] = 7
-
+        # let it fall
+        if _pos[1] > -5: #Change -5 into piece height later
+            _pos[1] -= 1 * deltaTime
+        # if _pos[1] <= -5:
+        #     _pos[1] = 7
+        # make it collect at bottom
+        if _pos[1] < -5: #Change -5 into piece height later
+            _pos[1] = -5
     _cube.Update(deltaTime)
 
 

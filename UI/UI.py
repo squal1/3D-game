@@ -16,9 +16,11 @@ def init():
     _uiIds = {}
     _uiNames = {}
 
-    helloworld = UIText("Hello World", align = "center")
+    # helloworld = UIText("Hello World", align = "center")
+    # score = UIText("", align = "center")
+    I = UIImage("/I.png", align = "right")
     _paused = UIText("Paused", align = "center", valign = "center", visible = False)
-    _uiObjects.append(helloworld)
+    # _uiObjects.append(helloworld)
     _uiObjects.append(_paused)
 
 

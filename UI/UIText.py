@@ -35,13 +35,13 @@ class UIText():
         if self.align == "left":
             self.x = 0
         elif self.align == "center":
-            self.x = UICommon.ScreenSize[0]/2-self.textSurface.get_width()/2
+            self.x = UICommon.ScreenSize[0]/2-self.width/2
         elif self.align == "right":
-            self.x = UICommon.ScreenSize[0] - self.textSurface.get_width()
+            self.x = UICommon.ScreenSize[0] - self.width
         if self.valign == "top":
-            self.y = UICommon.ScreenSize[1] - self.textSurface.get_height()
+            self.y = UICommon.ScreenSize[1] - self.height
         elif self.valign == "center":
-            self.y = UICommon.ScreenSize[1]/2-self.textSurface.get_height()/2
+            self.y = UICommon.ScreenSize[1]/2-self.height/2
         elif self.valign == "bottom":
             self.y = 0
         glWindowPos2d(self.x, self.y)
