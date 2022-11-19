@@ -59,7 +59,7 @@ def Update(deltaTime):
             return False
         if GamePlay.ProcessEvent(event):
             continue
-    #cube.Update(deltaTime)
+    # cube.Update(deltaTime)
     IBlock.Update(deltaTime)
     OBlock.Update(deltaTime)
     TBlock.Update(deltaTime)
@@ -76,7 +76,7 @@ def Render():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
     GamePlay.Render()
-    #cube.Render()
+    # cube.Render()
     Border.Render()
     IBlock.Render()
     OBlock.Render()

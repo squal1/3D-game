@@ -8,7 +8,6 @@ from OpenGL.GL import shaders
 class Cube:
     def __init__(self):
         color = np.asfarray([0,0,1])
-
         # 3 positions, 3 colors, 3 normals, 2 UVs
         self.verts = np.float32([(1, -1, -1, color[0], color[1], color[2], 0, 0, -1, 0, 0),
                                   (1, 1, -1, color[0], color[1], color[2], 0, 0, -1, 1, 0),

@@ -21,11 +21,15 @@ class UIText():
         self.width, self.height = self.textSurface.get_width(), self.textSurface.get_height()
         self.textData = pygame.image.tostring(self.textSurface, "RGBA", True)
         
-        
+    def GetCenterPosition(self):
+        return self.x + (self.width / 2.0), self.y + (self.height / 2.0)
 
     def _DrawText(self):
         glDrawPixels(self.width, self.height, GL_RGBA, GL_UNSIGNED_BYTE, self.textData)
 
+    def ProcessEvent(self, event):
+        return False
+        
     def Update(self, deltaTime):
         pass
         #super().Update(deltaTime)
