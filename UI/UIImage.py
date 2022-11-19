@@ -7,9 +7,12 @@ from OpenGL.GLU import *
 import UI.UICommon as UICommon
 
 class UIImage():
-    def __init__(self):
+    def __init__(self, path):
         pass
-    
+
+    def ProcessEvent(self, event):
+        return False
+
     def Update(self, deltaTime):
         pass
 
