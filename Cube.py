@@ -5,50 +5,78 @@ import math
 from OpenGL.arrays import vbo
 from OpenGL.GL import shaders
 
-#def Init():
-#np.asfarray([0.5, 1, 1])  # Light Blue
-#np.asfarray([1, 1, 0])  # Yellow
-#np.asfarray([1, 0, 1])  # Purple
-#np.asfarray([1, 0, 0])  # Red
-#np.asfarray([0, 1, 0])  # Green
-#np.asfarray([0, 0, 1])  # Blue
-#np.asfarray([1, 0.5, 0])  # Orange
+
+def Init():
+    global colors
+
+    colors = {"LightBlue": np.asfarray([0.5, 1, 1]),
+              "Yellow": np.asfarray([1, 1, 0]),
+              "Purple": np.asfarray([1, 0, 1]),
+              "Red": np.asfarray([1, 0, 0]),
+              "Green": np.asfarray([0, 1, 0]),
+              "Blue": np.asfarray([0, 0, 1]),
+              "Orange": np.asfarray([1, 0.5, 0])}
+
 
 class Cube:
-    def __init__(self):
-        color = np.asfarray([0,0,1])
+    def __init__(self, color):
+        global colors
+        color = colors[color]
 
         # 3 positions, 3 colors, 3 normals, 2 UVs
         self.verts = np.float32([(1, -1, -1, color[0], color[1], color[2], 0, 0, -1, 0, 0),
-                                  (1, 1, -1, color[0], color[1], color[2], 0, 0, -1, 1, 0),
-                                  (-1, 1, -1, color[0], color[1], color[2], 0, 0, -1, 1, 1),
-                                  (-1, -1, -1, color[0], color[1], color[2], 0, 0, -1, 0, 1),
+                                 (1, 1, -1, color[0], color[1],
+                                  color[2], 0, 0, -1, 1, 0),
+                                 (-1, 1, -1, color[0], color[1],
+                                  color[2], 0, 0, -1, 1, 1),
+                                 (-1, -1, -1, color[0], color[1],
+                                  color[2], 0, 0, -1, 0, 1),
 
-                                  (-1, -1, -1, color[0], color[1], color[2], -1, 0, 0, 0, 0),
-                                  (-1, 1, -1, color[0], color[1], color[2], -1, 0, 0, 1, 0),
-                                  (-1, 1, 1, color[0], color[1], color[2], -1, 0, 0, 1, 1),
-                                  (-1, -1, 1, color[0], color[1], color[2], -1, 0, 0, 0, 1),
+                                 (-1, -1, -1, color[0], color[1],
+                                  color[2], -1, 0, 0, 0, 0),
+                                 (-1, 1, -1, color[0], color[1],
+                                  color[2], -1, 0, 0, 1, 0),
+                                 (-1, 1, 1, color[0], color[1],
+                                  color[2], -1, 0, 0, 1, 1),
+                                 (-1, -1, 1, color[0], color[1],
+                                  color[2], -1, 0, 0, 0, 1),
 
-                                  (-1, -1, 1, color[0], color[1], color[2], 0, 0, 1, 0, 0),
-                                  (-1, 1, 1, color[0], color[1], color[2], 0, 0, 1, 1, 0),
-                                  (1, 1, 1, color[0], color[1], color[2], 0, 0, 1, 1, 1),
-                                  (1, -1, 1, color[0], color[1], color[2], 0, 0, 1, 0, 1),
-                                  
-                                  (1, -1, 1, color[0], color[1], color[2], 1, 0, 0, 0, 0),
-                                  (1, 1, 1, color[0], color[1], color[2], 1, 0, 0, 1, 0),
-                                  (1, 1, -1, color[0], color[1], color[2], 1, 0, 0, 1, 1),
-                                  (1, -1, -1, color[0], color[1], color[2], 1, 0, 0, 0, 1),
-                                  
-                                  (1, 1, -1, color[0], color[1], color[2], 0, 1, 0, 0, 0),
-                                  (1, 1, 1, color[0], color[1], color[2], 0, 1, 0, 1, 0),
-                                  (-1, 1, 1, color[0], color[1], color[2], 0, 1, 0, 1, 1),
-                                  (-1, 1, -1, color[0], color[1], color[2], 0, 1, 0, 0, 1),
-                                  
-                                  (1, -1, 1, color[0], color[1], color[2], 0, -1, 0, 0, 0),
-                                  (1, -1, -1, color[0], color[1], color[2], 0, -1, 0, 1, 0),
-                                  (-1, -1, -1, color[0], color[1], color[2], 0, -1, 0, 1, 1),
-                                  (-1, -1, 1, color[0], color[1], color[2], 0, -1, 0, 0, 1)
-                                  ])
+                                 (-1, -1, 1, color[0], color[1],
+                                  color[2], 0, 0, 1, 0, 0),
+                                 (-1, 1, 1, color[0], color[1],
+                                  color[2], 0, 0, 1, 1, 0),
+                                 (1, 1, 1, color[0], color[1],
+                                  color[2], 0, 0, 1, 1, 1),
+                                 (1, -1, 1, color[0], color[1],
+                                  color[2], 0, 0, 1, 0, 1),
+
+                                 (1, -1, 1, color[0], color[1],
+                                  color[2], 1, 0, 0, 0, 0),
+                                 (1, 1, 1, color[0], color[1],
+                                  color[2], 1, 0, 0, 1, 0),
+                                 (1, 1, -1, color[0], color[1],
+                                  color[2], 1, 0, 0, 1, 1),
+                                 (1, -1, -1, color[0], color[1],
+                                  color[2], 1, 0, 0, 0, 1),
+
+                                 (1, 1, -1, color[0], color[1],
+                                  color[2], 0, 1, 0, 0, 0),
+                                 (1, 1, 1, color[0], color[1],
+                                  color[2], 0, 1, 0, 1, 0),
+                                 (-1, 1, 1, color[0], color[1],
+                                  color[2], 0, 1, 0, 1, 1),
+                                 (-1, 1, -1, color[0], color[1],
+                                  color[2], 0, 1, 0, 0, 1),
+
+                                 (1, -1, 1, color[0], color[1],
+                                  color[2], 0, -1, 0, 0, 0),
+                                 (1, -1, -1, color[0], color[1],
+                                  color[2], 0, -1, 0, 1, 0),
+                                 (-1, -1, -1, color[0], color[1],
+                                  color[2], 0, -1, 0, 1, 1),
+                                 (-1, -1, 1, color[0], color[1],
+                                  color[2], 0, -1, 0, 0, 1)
+                                 ])
 
         self.VERTEX_SHADER = shaders.compileShader("""#version 130
         uniform mat4 invT;
@@ -61,7 +89,8 @@ class Cube:
             vec4 norm = invT * vec4(vertex_normal,1.0);
             gl_Position = gl_ModelViewProjectionMatrix * vec4(position, 1.0);
             vertex_color = vec4(color * min(1, max(0, norm[2])), 1.0);
-        }""", GL_VERTEX_SHADER)
+        }
+        """, GL_VERTEX_SHADER)
 
         self.FRAGMENT_SHADER = shaders.compileShader("""#version 130
         in vec4 vertex_color;
@@ -69,9 +98,11 @@ class Cube:
         void main()
         {
             fragColor = vertex_color;
-        }""", GL_FRAGMENT_SHADER)
+        }
+        """, GL_FRAGMENT_SHADER)
 
-        self.shader = shaders.compileProgram(self.VERTEX_SHADER, self.FRAGMENT_SHADER)
+        self.shader = shaders.compileProgram(
+            self.VERTEX_SHADER, self.FRAGMENT_SHADER)
         self.vbo = vbo.VBO(self.verts)
 
         self.uniformInvT = glGetUniformLocation(self.shader, "invT")
@@ -93,9 +124,12 @@ class Cube:
                 glEnableVertexAttribArray(self.color)
                 glEnableVertexAttribArray(self.vertex_normal)
                 stride = 44
-                glVertexAttribPointer(self.position, 3, GL_FLOAT, False, stride, self.vbo)
-                glVertexAttribPointer(self.color, 3, GL_FLOAT, False, stride, self.vbo+12)
-                glVertexAttribPointer(self.vertex_normal, 3, GL_FLOAT, True, stride, self.vbo)
+                glVertexAttribPointer(
+                    self.position, 3, GL_FLOAT, False, stride, self.vbo)
+                glVertexAttribPointer(
+                    self.color, 3, GL_FLOAT, False, stride, self.vbo+12)
+                glVertexAttribPointer(self.vertex_normal,
+                                      3, GL_FLOAT, True, stride, self.vbo)
                 glDrawArrays(GL_QUADS, 0, 24)
 
             finally:
