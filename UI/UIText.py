@@ -9,11 +9,12 @@ import UI.UICommon as UICommon
 
 
 class UIText():
-    def __init__(self, text = "", x = 0, y = UICommon.ScreenSize[1], align = "left", valign = "top", font = 'arial'):
+    def __init__(self, text = "", x = 0, y = UICommon.ScreenSize[1], align = "left", valign = "top", visible = True, font = 'arial'):
         self.text = text
         # origin in bottom left
         self.align, self.valign = align, valign
         self.x, self.y = x, y
+        self.visible = visible
         self.font = pygame.font.SysFont(font, 64)
         self.textSurface = self.font.render(self.text, True, (255, 255, 255, 255), (0, 0, 0, 0))
         # text color, bg color
@@ -21,15 +22,11 @@ class UIText():
         self.width, self.height = self.textSurface.get_width(), self.textSurface.get_height()
         self.textData = pygame.image.tostring(self.textSurface, "RGBA", True)
         
-    def GetCenterPosition(self):
-        return self.x + (self.width / 2.0), self.y + (self.height / 2.0)
+        
 
     def _DrawText(self):
         glDrawPixels(self.width, self.height, GL_RGBA, GL_UNSIGNED_BYTE, self.textData)
 
-    def ProcessEvent(self, event):
-        return False
-        
     def Update(self, deltaTime):
         pass
         #super().Update(deltaTime)
@@ -48,7 +45,8 @@ class UIText():
         elif self.valign == "bottom":
             self.y = 0
         glWindowPos2d(self.x, self.y)
-        self._DrawText()
+        if self.visible:
+            self._DrawText()
         #super().Render(screen)
 
     

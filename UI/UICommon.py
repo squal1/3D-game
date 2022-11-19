@@ -1,6 +1,7 @@
 import pygame
 
 ScreenSize = [0,0]
+TogglePause = False
 Paused = False
 
 keypressed = {

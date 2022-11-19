@@ -60,13 +60,13 @@ def Update(deltaTime):
         if GamePlay.ProcessEvent(event):
             continue
     # cube.Update(deltaTime)
-    IBlock.Update(deltaTime)
-    OBlock.Update(deltaTime)
-    TBlock.Update(deltaTime)
-    SBlock.Update(deltaTime)
-    ZBlock.Update(deltaTime)
-    JBlock.Update(deltaTime)
-    LBlock.Update(deltaTime)
+    # IBlock.Update(deltaTime)
+    # OBlock.Update(deltaTime)
+    # TBlock.Update(deltaTime)
+    # SBlock.Update(deltaTime)
+    # ZBlock.Update(deltaTime)
+    # JBlock.Update(deltaTime)
+    # LBlock.Update(deltaTime)
     UI.Update(deltaTime)
     GamePlay.Update(deltaTime)
     return True
@@ -74,17 +74,21 @@ def Update(deltaTime):
 
 def Render():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    if UICommon.TogglePause:
+        UICommon.Paused = not UICommon.Paused
+        UICommon.TogglePause = False
+    
 
     GamePlay.Render()
     # cube.Render()
     Border.Render()
-    IBlock.Render()
-    OBlock.Render()
-    TBlock.Render()
-    SBlock.Render()
-    ZBlock.Render()
-    JBlock.Render()
-    LBlock.Render()
+    # IBlock.Render()
+    # OBlock.Render()
+    # TBlock.Render()
+    # SBlock.Render()
+    # ZBlock.Render()
+    # JBlock.Render()
+    # LBlock.Render()
     UI.Render()
     pygame.display.flip()
 
