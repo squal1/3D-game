@@ -41,8 +41,6 @@ class Cube:
                                   (-1, -1, 1, color[0], color[1], color[2], 0, -1, 0, 0, 1)
                                   ])
 
-        self.ang = 0
-        self.axis = (3,1,1)
         self.VERTEX_SHADER = shaders.compileShader("""#version 130
         uniform mat4 invT;
         attribute vec3 position;
@@ -73,7 +71,7 @@ class Cube:
         self.vertex_normal = glGetAttribLocation(self.shader, "vertex_normal")
 
     def Update(self, deltaTime):
-        self.ang += 50.0*deltaTime
+        pass
 
     def _DrawBlock(self):
         shaders.glUseProgram(self.shader)
@@ -102,7 +100,6 @@ class Cube:
     def Render(self):
         m = glGetDouble(GL_MODELVIEW_MATRIX)
 
-        glRotatef(self.ang, *self.axis)
         self._DrawBlock()
 
         glLoadMatrixf(m)
