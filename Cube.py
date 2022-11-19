@@ -19,8 +19,9 @@ def Init():
 
 
 class Cube:
-    def __init__(self, color):
+    def __init__(self, color, pos):
         global colors
+        self.pos = pos
         color = colors[color]
 
         # 3 positions, 3 colors, 3 normals, 2 UVs
@@ -142,7 +143,7 @@ class Cube:
 
     def Render(self):
         m = glGetDouble(GL_MODELVIEW_MATRIX)
-
+        glTranslate(*self.pos)
         self._DrawBlock()
 
         glLoadMatrixf(m)

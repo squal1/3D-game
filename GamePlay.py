@@ -12,7 +12,7 @@ import Cube
 def Init():
     global _cube
     global _pos
-    _cube = Cube.Cube("Yellow")
+    _cube = Cube.Cube("Yellow", np.asfarray([-5, 0, 0]))
     _pos = np.asfarray([-1, 7, -1])
 
 
