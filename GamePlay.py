@@ -3,7 +3,11 @@ from OpenGL.GL import *
 import numpy as np
 import math
 import random
+
+import UI.UI
+import UI.UICommon as UICommon
 import Cube
+
 
 
 def Init():
@@ -14,6 +18,16 @@ def Init():
 
 
 def ProcessEvent(event):
+    if event.type == pygame.KEYDOWN:
+        if event.key in UICommon.keypressed:
+            UICommon.keypressed[event.key] = True
+            if UICommon.keypressed[pygame.K_ESCAPE]:
+                UICommon.TogglePause = True
+            return True
+        elif event.type == pygame.KEYUP:
+            if event.key in UICommon.keypressed:
+                UICommon.keypressed[event.key] = False
+                return True
     return False
 
 
@@ -21,9 +35,11 @@ def Update(deltaTime):
     global _cube
     global _pos
 
-    _pos[1] -= 1 * deltaTime
-    if _pos[1] <= -5:
-        _pos[1] = 7
+    
+    if not UICommon.Paused:
+        _pos[1] -= 1 * deltaTime
+        if _pos[1] <= -5:
+            _pos[1] = 7
 
     _cube.Update(deltaTime)
 
@@ -33,5 +49,6 @@ def Render():
     global _pos
     m = glGetDouble(GL_MODELVIEW_MATRIX)
     glTranslatef(*_pos)
-    _cube.Render()
+    if not UICommon.Paused:
+        _cube.Render()
     glLoadMatrixf(m)
