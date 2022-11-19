@@ -57,12 +57,9 @@ def Update(deltaTime):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             return False
-        if UI.ProcessEvent(event) == True:
+        if GamePlay.ProcessEvent(event):
             continue
-        if UICommon.Paused:
-            ### Do not render 3D pieces and next piece image
-            continue
-    cube.Update(deltaTime)
+    #cube.Update(deltaTime)
     IBlock.Update(deltaTime)
     OBlock.Update(deltaTime)
     TBlock.Update(deltaTime)
