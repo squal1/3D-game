@@ -9,11 +9,10 @@ import UI.UICommon as UICommon
 import Cube
 
 
-
 def Init():
     global _cube
     global _pos
-    _cube = Cube.Cube()
+    _cube = Cube.Cube("Yellow")
     _pos = np.asfarray([-1, 7, -1])
 
 
@@ -35,7 +34,6 @@ def Update(deltaTime):
     global _cube
     global _pos
 
-    
     if not UICommon.Paused:
         # let it fall
         if _pos[1] > -5: #Change -5 into piece height later
