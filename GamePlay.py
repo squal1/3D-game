@@ -33,16 +33,28 @@ def Init():
 
 
 def ProcessEvent(event):
+    global _curBlock
+    # Do nothing during paused unless it's for resuming the game
+    if UICommon.Paused == True and event.key != pygame.K_ESCAPE:
+        return
     if event.type == pygame.KEYDOWN:
         if event.key in UICommon.keypressed:
             UICommon.keypressed[event.key] = True
             if UICommon.keypressed[pygame.K_ESCAPE]:
                 UICommon.TogglePause = True
+            if UICommon.keypressed[pygame.K_UP]:
+                _pos[2] -= 2
+            if UICommon.keypressed[pygame.K_DOWN]:
+                _pos[2] += 2
+            if UICommon.keypressed[pygame.K_LEFT]:
+                _pos[0] -= 2
+            if UICommon.keypressed[pygame.K_RIGHT]:
+                _pos[0] += 2
             return True
-        elif event.type == pygame.KEYUP:
-            if event.key in UICommon.keypressed:
-                UICommon.keypressed[event.key] = False
-                return True
+    elif event.type == pygame.KEYUP:
+        if event.key in UICommon.keypressed:
+            UICommon.keypressed[event.key] = False
+            return True
     return False
 
 
@@ -57,7 +69,7 @@ def Update(deltaTime):
         _pos[1] -= _fallingSpeed * deltaTime
         if _pos[1] <= -5:  # If height of the block <= -5
             _curBlock = _blocks[_order.pop(0)]  # Get new block
-            _nextBlock = _blocks[_order[0]]
+            _nextBlock = _blocks[_order[0]]  # Set next block
             print("Next:" + _nextBlock.__class__.__name__)
             _order.append(random.randint(0, 6))  # Append new block to order
             _pos[1] = 7  # Reset block to top
