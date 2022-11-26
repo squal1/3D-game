@@ -11,7 +11,6 @@ import UI.UICommon as UICommon
 
 import Cube
 
-
 # Main Init
 pygame.init()
 
@@ -20,6 +19,8 @@ size = width, height = 640, 750
 UICommon.ScreenSize[0] = width
 UICommon.ScreenSize[1] = height
 
+# Init cube
+Cube.Init()
 # Init UI
 UI.init()
 
@@ -36,8 +37,6 @@ glTranslate(1.0, 0.0, -20)
 glRotate(-15, 0, 1, 0)
 glRotate(30, 1, 0, 0)
 
-# Init Cube
-Cube.Init()
 # Init GamePlay
 GamePlay.Init()
 

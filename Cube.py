@@ -145,5 +145,4 @@ class Cube:
         m = glGetDouble(GL_MODELVIEW_MATRIX)
         glTranslate(*self.pos)
         self._DrawBlock()
-
         glLoadMatrixf(m)

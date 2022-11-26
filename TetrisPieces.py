@@ -4,80 +4,79 @@ from Cube import Cube
 
 
 class TetrisPieces:
-    def __init__(self, components, pos):
-        self.componemts = []
-        self.pos = pos
-
-    def _DrawBlock(self):
-        pass
-
-    def _RotateX(self):
-        self.angX = 90 * pi/180
-
-    def _RotateY(self):
-        self.angY = 90 * pi/180
-
-    def _RotateZ(self):
-        self.angZ = 90 * pi/180
+    def __init__(self, components):
+        self.components = components
+        self.pos = np.asfarray([0, 0, 0])
 
     def Update(self, deltaTime):
-        pass
+        for component in self.components:
+            component.Update(deltaTime)
 
     def Render(self):
-        pass
+        m = glGetDouble(GL_MODELVIEW_MATRIX)
+        for component in self.components:
+            component.Render()
+        glLoadMatrixf(m)
 
 
-class I(TetrisPieces):
+class IBlock(TetrisPieces):
     def __init__(self):
-        pass
+        components = [Cube("LightBlue", np.asfarray([-2, 0, 0])),
+                      Cube("LightBlue", np.asfarray([0, 0, 0])),
+                      Cube("LightBlue", np.asfarray([2, 0, 0])),
+                      Cube("LightBlue", np.asfarray([4, 0, 0]))]
+        super().__init__(components)
 
-    def Update(self, deltaTime):
-        pass
 
-
-class O(TetrisPieces):
+class OBlock(TetrisPieces):
     def __init__(self):
-        pass
+        components = [Cube("Yellow", np.asfarray([-2, 0, 0])),
+                      Cube("Yellow", np.asfarray([-2, 2, 0])),
+                      Cube("Yellow", np.asfarray([0, 0, 0])),
+                      Cube("Yellow", np.asfarray([0, 2, 0]))]
+        super().__init__(components)
 
-    def Update(self, deltaTime):
-        pass
 
-
-class T(TetrisPieces):
+class TBlock(TetrisPieces):
     def __init__(self):
-        pass
+        components = [Cube("Purple", np.asfarray([-2, 0, 0])),
+                      Cube("Purple", np.asfarray([0, 0, 0])),
+                      Cube("Purple", np.asfarray([2, 0, 0])),
+                      Cube("Purple", np.asfarray([0, 2, 0]))]
+        super().__init__(components)
 
-    def Update(self, deltaTime):
-        pass
 
-
-class S(TetrisPieces):
+class SBlock(TetrisPieces):
     def __init__(self):
-        pass
+        components = [Cube("Red", np.asfarray([2, 2, 0])),
+                      Cube("Red", np.asfarray([0, 2, 0])),
+                      Cube("Red", np.asfarray([0, 0, 0])),
+                      Cube("Red", np.asfarray([-2, 0, 0]))]
+        super().__init__(components)
 
-    def Update(self, deltaTime):
-        pass
 
-
-class Z(TetrisPieces):
+class ZBlock(TetrisPieces):
     def __init__(self):
-        pass
+        components = [Cube("Green", np.asfarray([-2, 2, 0])),
+                      Cube("Green", np.asfarray([0, 2, 0])),
+                      Cube("Green", np.asfarray([0, 0, 0])),
+                      Cube("Green", np.asfarray([2, 0, 0]))]
+        super().__init__(components)
 
-    def Update(self, deltaTime):
-        pass
 
-
-class J(TetrisPieces):
+class JBlock(TetrisPieces):
     def __init__(self):
-        pass
+        components = [Cube("Blue", np.asfarray([-2, 0, 0])),
+                      Cube("Blue", np.asfarray([0, 0, 0])),
+                      Cube("Blue", np.asfarray([2, 0, 0])),
+                      Cube("Blue", np.asfarray([-2, 2, 0]))]
+        super().__init__(components)
 
-    def Update(self, deltaTime):
-        pass
 
-
-class L(TetrisPieces):
+class LBlock(TetrisPieces):
     def __init__(self):
-        pass
-
-    def Update(self, deltaTime):
-        pass
+        components = [Cube("Orange", np.asfarray([-2, 0, 0])),
+                      Cube("Orange", np.asfarray([0, 0, 0])),
+                      Cube("Orange", np.asfarray([2, 0, 0])),
+                      Cube("Orange", np.asfarray([2, 2, 0]))]
+        super().__init__(components)
