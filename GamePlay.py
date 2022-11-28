@@ -42,6 +42,8 @@ def Init():
     _order = _order[:3]
     _curBlock = _blocks[_order.pop(0)]
     _nextBlock = _blocks[_order[0]]
+    print("Next:" + _nextBlock.__class__.__name__)
+    UICommon.Blocks[_order[0]].visible = True
     _pos = np.asfarray([-1, 7, -1])
 
     _fallingSpeed = 3
@@ -89,15 +91,19 @@ def Update(deltaTime):
     global _order
     global _pos
 
+
     if not UICommon.Paused:
         _pos[1] -= _fallingSpeed * deltaTime
         if _pos[1] <= -5:  # If height of the block <= -5
+            UICommon.Blocks[_order[0]].visible = False
             _curBlock = _blocks[_order.pop(0)]  # Get new block
             _nextBlock = _blocks[_order[0]]  # Set next block
             print("Next:" + _nextBlock.__class__.__name__)
+            UICommon.Blocks[_order[0]].visible = True
             _order.append(random.randint(0, 6))  # Append new block to order
             _pos[1] = 7  # Reset block to top
-
+            
+        
         # # make it collect at bottom
         # if _pos[1] < -5: #Change -5 into piece height later
         #     _pos[1] = -5

@@ -4,6 +4,7 @@ ScreenSize = [0, 0]
 TogglePause = False
 Paused = False
 
+Blocks = []
 keypressed = {
     pygame.K_ESCAPE: False,
     pygame.K_a: False,

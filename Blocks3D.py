@@ -36,10 +36,11 @@ glTranslate(1.0, 0.0, -20)
 glRotate(-15, 0, 1, 0)
 glRotate(30, 1, 0, 0)
 
-# Init GamePlay
-GamePlay.Init()
 # Init UI
 UI.init()
+# Init GamePlay
+GamePlay.Init()
+
 
 def Update(deltaTime):
     for event in pygame.event.get():

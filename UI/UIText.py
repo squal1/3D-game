@@ -48,7 +48,7 @@ class UIText():
         glWindowPos2d(self.x, self.y)
         if self.visible:
             self._DrawText()
-            print("rendering" + self.text)
+            # print("rendering" + self.text)
         #super().Render(screen)
 
     

@@ -19,12 +19,28 @@ def init():
     helloworld = UIText("Hello World", align = "center")
     # score = UIText("", align = "center")
     preview = UIText("Next Block", size = 16, align = "right", xoffset= -25, yoffset=-30)
-    Iblock = UIImage("UI/Data/I.png", align = "right", xoffset= -50, yoffset=-75)
     _paused = UIText("Paused", align = "center", valign = "center", visible = False)
+    I = UIImage("UI/Data/I.png", align = "right", xoffset= -40, yoffset=-75, visible = False)
+    O = UIImage("UI/Data/O.png", align = "right", xoffset= -40, yoffset=-75, visible = False)
+    T = UIImage("UI/Data/T.png", align = "right", xoffset= -40, yoffset=-75, visible = False)
+    S = UIImage("UI/Data/S.png", align = "right", xoffset= -40, yoffset=-75, visible = False)
+    Z = UIImage("UI/Data/Z.png", align = "right", xoffset= -40, yoffset=-75, visible = False)
+    J = UIImage("UI/Data/J.png", align = "right", xoffset= -40, yoffset=-75, visible = False)
+    L = UIImage("UI/Data/L.png", align = "right", xoffset= -40, yoffset=-75, visible = False)
+    
     _uiObjects.append(helloworld)
     _uiObjects.append(preview)
-    _uiObjects.append(Iblock)
     _uiObjects.append(_paused)
+    # _uiObjects.append(I)
+    # _uiObjects.append(O)
+    # _uiObjects.append(T)
+    # _uiObjects.append(S)
+    # _uiObjects.append(Z)
+    # _uiObjects.append(J)
+    # _uiObjects.append(L)
+    
+    UICommon.Blocks = [J, L, Z, S,
+               T, I, O]
 
 
 def Update(deltaTime):
@@ -38,6 +54,9 @@ def Update(deltaTime):
         else:
             i.visible = True
             _paused.visible = False
+    for i in UICommon.Blocks:
+        i.Update(deltaTime)
+        # print(i.path + str(i.visible))
 
 
 def Render():
@@ -45,7 +64,9 @@ def Render():
     for i in _uiObjects:
         if i.visible:
             i.Render()
-
+    for i in UICommon.Blocks:
+        if i.visible:
+            i.Render()
 def Cleanup():
     pass
 
