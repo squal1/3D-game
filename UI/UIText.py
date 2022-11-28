@@ -43,14 +43,9 @@ class UIText():
         glDrawPixels(self.width, self.height, GL_RGBA, GL_UNSIGNED_BYTE, self.textData)
 
     def Update(self, deltaTime):
-        #draw text on surface
-        ###text, antialias, color, bg color
         self.textSurface = self.font.render(self.text, True, self.color, None)
-        # text color, bg color
-        # Get width and height
         self.width, self.height = self.textSurface.get_width(), self.textSurface.get_height()
         self.textData = pygame.image.tostring(self.textSurface, "RGBA", True)
-        #super().Update(deltaTime)
 
     def Render(self):
         
@@ -58,7 +53,6 @@ class UIText():
         if self.visible:
             self._DrawText()
             # print("rendering" + self.text)
-        #super().Render(screen)
 
     
 

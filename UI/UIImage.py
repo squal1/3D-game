@@ -101,7 +101,7 @@ class UIImage():
         
         # print(self.x,self.y)
         if self.visible:
-            # print("showing image")
+            # print("showing image")z
             glViewport(self.x, self.y, self.width, self.height)
             self._DrawImage()
             glViewport(0, 0, UICommon.ScreenSize[0], UICommon.ScreenSize[1])

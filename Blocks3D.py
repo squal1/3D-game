@@ -59,11 +59,16 @@ def Update(deltaTime):
 
 def Render():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-    
 
-    GamePlay.Render()
-    Border.Render()
-    UI.Render()
+    if not UICommon.Paused:
+        GamePlay.Render()
+        Border.Render()
+        if UI._paused.visible:
+            UI._paused.visible = False
+        UI.Render()
+    else:
+        UI._paused.visible = True
+        UI._paused.Render()
     pygame.display.flip()
 
 
