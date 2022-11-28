@@ -17,18 +17,22 @@ def init():
     _uiNames = {}
 
     helloworld = UIText("Hello World", align = "center")
-    # score = UIText("", align = "center")
-    preview = UIText("Next Block", size = 16, align = "right", xoffset= -25, yoffset=-30)
-    _paused = UIText("Paused", align = "center", valign = "center", visible = False)
-    I = UIImage("UI/Data/I.png", align = "right", xoffset= -40, yoffset=-75, visible = False)
-    O = UIImage("UI/Data/O.png", align = "right", xoffset= -40, yoffset=-75, visible = False)
-    T = UIImage("UI/Data/T.png", align = "right", xoffset= -40, yoffset=-75, visible = False)
-    S = UIImage("UI/Data/S.png", align = "right", xoffset= -40, yoffset=-75, visible = False)
-    Z = UIImage("UI/Data/Z.png", align = "right", xoffset= -40, yoffset=-75, visible = False)
-    J = UIImage("UI/Data/J.png", align = "right", xoffset= -40, yoffset=-75, visible = False)
-    L = UIImage("UI/Data/L.png", align = "right", xoffset= -40, yoffset=-75, visible = False)
+    scoretag = UIText("Score", size = 16, align = "right", xoffset= -20, yoffset=-30)
+    score = UIText("0", align = "right", xoffset= -20, yoffset=-50)
+    preview = UIText("Next Block", size = 16, align = "right", valign = "center", xoffset= -25, yoffset=-30)
+    _paused = UIText("Game Paused", align = "center", valign = "center", visible = False)
+    I = UIImage("UI/Data/I.png", align = "right", valign = "center", xoffset= -40, yoffset=-75, visible = False)
+    O = UIImage("UI/Data/O.png", align = "right", valign = "center", xoffset= -40, yoffset=-75, visible = False)
+    T = UIImage("UI/Data/T.png", align = "right", valign = "center", xoffset= -40, yoffset=-75, visible = False)
+    S = UIImage("UI/Data/S.png", align = "right", valign = "center", xoffset= -40, yoffset=-75, visible = False)
+    Z = UIImage("UI/Data/Z.png", align = "right", valign = "center", xoffset= -40, yoffset=-75, visible = False)
+    J = UIImage("UI/Data/J.png", align = "right", valign = "center", xoffset= -40, yoffset=-75, visible = False)
+    L = UIImage("UI/Data/L.png", align = "right", valign = "center", xoffset= -40, yoffset=-75, visible = False)
     
     _uiObjects.append(helloworld)
+    _uiObjects.append(scoretag)
+    _uiObjects.append(score)
+    _uiNames["score"] = score
     _uiObjects.append(preview)
     _uiObjects.append(_paused)
     # _uiObjects.append(I)
@@ -46,6 +50,7 @@ def init():
 def Update(deltaTime):
     global _uiObjects
     global _paused
+
     for i in _uiObjects:
         i.Update(deltaTime)
         if UICommon.Paused:
@@ -57,10 +62,12 @@ def Update(deltaTime):
     for i in UICommon.Blocks:
         i.Update(deltaTime)
         # print(i.path + str(i.visible))
+    
 
 
 def Render():
     global _uiObjects
+    
     for i in _uiObjects:
         if i.visible:
             i.Render()

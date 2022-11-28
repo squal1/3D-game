@@ -5,6 +5,7 @@ TogglePause = False
 Paused = False
 
 Blocks = []
+Score = 0
 keypressed = {
     pygame.K_ESCAPE: False,
     pygame.K_a: False,

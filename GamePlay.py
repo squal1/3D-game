@@ -16,6 +16,7 @@ def Init():
     global _curBlock
     global _fallingSpeed
     global _nextBlock
+    global _collectedBlock
     global _order
     global _pos
     global _worldQuat
@@ -42,6 +43,7 @@ def Init():
     _order = _order[:3]
     _curBlock = _blocks[_order.pop(0)]
     _nextBlock = _blocks[_order[0]]
+    _collectedBlock = []
     print("Next:" + _nextBlock.__class__.__name__)
     UICommon.Blocks[_order[0]].visible = True
     _pos = np.asfarray([-1, 7, -1])
@@ -96,9 +98,11 @@ def Update(deltaTime):
         _pos[1] -= _fallingSpeed * deltaTime
         if _pos[1] <= -5:  # If height of the block <= -5
             UICommon.Blocks[_order[0]].visible = False
+            # _collectedBlock.append(_curBlock)
+            
             _curBlock = _blocks[_order.pop(0)]  # Get new block
             _nextBlock = _blocks[_order[0]]  # Set next block
-            print("Next:" + _nextBlock.__class__.__name__)
+            # print("Next:" + _nextBlock.__class__.__name__)
             UICommon.Blocks[_order[0]].visible = True
             _order.append(random.randint(0, 6))  # Append new block to order
             _pos[1] = 7  # Reset block to top
@@ -109,10 +113,15 @@ def Update(deltaTime):
         #     _pos[1] = -5
 
     _curBlock.Update(deltaTime)
+    
+    ##Score update
+    # Score = UI.GetElementByName("score")
+    # Score.text = str(score)
 
 
 def Render():
     global _curBlock
+    global _collectedBlock
     global _pos
     global _worldQuat
     global _rotationX
@@ -137,4 +146,6 @@ def Render():
     glMultMatrixf(_worldQuat.getRotMat4())
     if not UICommon.Paused:
         _curBlock.Render()
+        # for i in _collectedBlock:
+        #     i.Render()
     glLoadMatrixf(m)
