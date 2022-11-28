@@ -20,7 +20,7 @@ class Quaternion:
         return self
 
     def setRotationQuat(self, axisVector=np.asfarray([0, 0, 0]), angle=0.0):
-        # Convert vector to normal vector
+        # Convert vector to unit vector
         axisVector /= np.linalg.norm(axisVector)
         angle *= np.pi / 180
         angle /= 2
