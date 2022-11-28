@@ -7,7 +7,7 @@ import random
 import UI.UI
 import UI.UICommon as UICommon
 
-
+from Quaternion import Quaternion
 from TetrisPieces import *
 
 
@@ -18,6 +18,21 @@ def Init():
     global _nextBlock
     global _order
     global _pos
+    global _worldQuat
+    global _rotationX
+    global _rotationY
+    global _rotationZ
+    global _rotationXQuat
+    global _rotationYQuat
+    global _rotationZQuat
+
+    _worldQuat = Quaternion()
+    _rotationXQuat = Quaternion().setRotationQuat(np.asfarray([1, 0, 0]), 90.0)
+    _rotationYQuat = Quaternion().setRotationQuat(np.asfarray([0, 1, 0]), 90.0)
+    _rotationZQuat = Quaternion().setRotationQuat(np.asfarray([0, 0, 1]), 90.0)
+    _rotationX = False
+    _rotationY = False
+    _rotationZ = False
 
     _blocks = [JBlock(), LBlock(), ZBlock(), SBlock(),
                TBlock(), IBlock(), OBlock()]
@@ -34,6 +49,9 @@ def Init():
 
 def ProcessEvent(event):
     global _curBlock
+    global _rotationX
+    global _rotationY
+    global _rotationZ
     # Do nothing during paused unless it's for resuming the game
     if UICommon.Paused == True and event.key != pygame.K_ESCAPE:
         return
@@ -50,6 +68,12 @@ def ProcessEvent(event):
                 _pos[0] -= 2
             if UICommon.keypressed[pygame.K_RIGHT]:
                 _pos[0] += 2
+            if UICommon.keypressed[pygame.K_a]:
+                _rotationX = True
+            if UICommon.keypressed[pygame.K_s]:
+                _rotationY = True
+            if UICommon.keypressed[pygame.K_d]:
+                _rotationZ = True
             return True
     elif event.type == pygame.KEYUP:
         if event.key in UICommon.keypressed:
@@ -80,8 +104,27 @@ def Update(deltaTime):
 def Render():
     global _curBlock
     global _pos
+    global _worldQuat
+    global _rotationX
+    global _rotationY
+    global _rotationZ
+    global _rotationXQuat
+    global _rotationYQuat
+    global _rotationZQuat
+
+    if _rotationX:
+        _worldQuat = _worldQuat.mult(_rotationXQuat)
+        _rotationX = False
+    if _rotationY:
+        _worldQuat = _worldQuat.mult(_rotationYQuat)
+        _rotationY = False
+    if _rotationZ:
+        _worldQuat = _worldQuat.mult(_rotationZQuat)
+        _rotationZ = False
+
     m = glGetDouble(GL_MODELVIEW_MATRIX)
     glTranslatef(*_pos)
+    glMultMatrixf(_worldQuat.getRotMat4())
     if not UICommon.Paused:
         _curBlock.Render()
     glLoadMatrixf(m)
