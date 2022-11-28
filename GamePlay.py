@@ -52,28 +52,28 @@ def ProcessEvent(event):
     global _rotationX
     global _rotationY
     global _rotationZ
-    # Do nothing during paused unless it's for resuming the game
-    if UICommon.Paused == True and event.key != pygame.K_ESCAPE:
-        return
+
     if event.type == pygame.KEYDOWN:
         if event.key in UICommon.keypressed:
             UICommon.keypressed[event.key] = True
             if UICommon.keypressed[pygame.K_ESCAPE]:
                 UICommon.TogglePause = True
-            if UICommon.keypressed[pygame.K_UP]:
-                _pos[2] -= 2
-            if UICommon.keypressed[pygame.K_DOWN]:
-                _pos[2] += 2
-            if UICommon.keypressed[pygame.K_LEFT]:
-                _pos[0] -= 2
-            if UICommon.keypressed[pygame.K_RIGHT]:
-                _pos[0] += 2
-            if UICommon.keypressed[pygame.K_a]:
-                _rotationX = True
-            if UICommon.keypressed[pygame.K_s]:
-                _rotationY = True
-            if UICommon.keypressed[pygame.K_d]:
-                _rotationZ = True
+            # Only rotate when not pause
+            if not UICommon.Paused:
+                if UICommon.keypressed[pygame.K_UP]:
+                    _pos[2] -= 2
+                if UICommon.keypressed[pygame.K_DOWN]:
+                    _pos[2] += 2
+                if UICommon.keypressed[pygame.K_LEFT]:
+                    _pos[0] -= 2
+                if UICommon.keypressed[pygame.K_RIGHT]:
+                    _pos[0] += 2
+                if UICommon.keypressed[pygame.K_a]:
+                    _rotationX = True
+                if UICommon.keypressed[pygame.K_s]:
+                    _rotationY = True
+                if UICommon.keypressed[pygame.K_d]:
+                    _rotationZ = True
             return True
     elif event.type == pygame.KEYUP:
         if event.key in UICommon.keypressed:

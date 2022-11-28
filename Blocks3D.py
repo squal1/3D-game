@@ -21,8 +21,7 @@ UICommon.ScreenSize[1] = height
 
 # Init cube
 Cube.Init()
-# Init UI
-UI.init()
+
 
 screen = pygame.display.set_mode(size, DOUBLEBUF | OPENGL)
 
@@ -39,7 +38,8 @@ glRotate(30, 1, 0, 0)
 
 # Init GamePlay
 GamePlay.Init()
-
+# Init UI
+UI.init()
 
 def Update(deltaTime):
     for event in pygame.event.get():
@@ -48,16 +48,17 @@ def Update(deltaTime):
         if GamePlay.ProcessEvent(event):
             continue
 
-    UI.Update(deltaTime)
+    if UICommon.TogglePause:
+        UICommon.Paused = not UICommon.Paused
+        UICommon.TogglePause = False
     GamePlay.Update(deltaTime)
+    UI.Update(deltaTime)
     return True
 
 
 def Render():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-    if UICommon.TogglePause:
-        UICommon.Paused = not UICommon.Paused
-        UICommon.TogglePause = False
+    
 
     GamePlay.Render()
     Border.Render()

@@ -16,11 +16,14 @@ def init():
     _uiIds = {}
     _uiNames = {}
 
-    # helloworld = UIText("Hello World", align = "center")
+    helloworld = UIText("Hello World", align = "center")
     # score = UIText("", align = "center")
-    I = UIImage("UI/Data/I.png", align = "right")
+    preview = UIText("Next Block", size = 16, align = "right", xoffset= -25, yoffset=-30)
+    Iblock = UIImage("UI/Data/I.png", align = "right", xoffset= -50, yoffset=-75)
     _paused = UIText("Paused", align = "center", valign = "center", visible = False)
-    # _uiObjects.append(helloworld)
+    _uiObjects.append(helloworld)
+    _uiObjects.append(preview)
+    _uiObjects.append(Iblock)
     _uiObjects.append(_paused)
 
 
