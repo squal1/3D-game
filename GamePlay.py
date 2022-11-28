@@ -35,17 +35,31 @@ def Init():
     _rotationY = False
     _rotationZ = False
 
-    _blocks = [JBlock(), LBlock(), ZBlock(), SBlock(),
-               TBlock(), IBlock(), OBlock()]
-
+    _blocks = []
     _order = [0, 1, 2, 3, 4, 5, 6]
     random.shuffle(_order)
-    _order = _order[:3]
-    _curBlock = _blocks[_order.pop(0)]
-    _nextBlock = _blocks[_order[0]]
+    _order = _order[:2]
+    for order in _order:
+        if order == 0:
+            _blocks.append(JBlock())
+        if order == 1:
+            _blocks.append(LBlock())
+        if order == 2:
+            _blocks.append(ZBlock())
+        if order == 3:
+            _blocks.append(SBlock())
+        if order == 4:
+            _blocks.append(TBlock())
+        if order == 5:
+            _blocks.append(IBlock())
+        if order == 6:
+            _blocks.append(OBlock())
+
+    _curBlock = _blocks[-2]
+    _nextBlock = _blocks[-1]
     _collectedBlock = []
     print("Next:" + _nextBlock.__class__.__name__)
-    UICommon.Blocks[_order[0]].visible = True
+    UICommon.Blocks[_order[-1]].visible = True
     _pos = np.asfarray([-1, 7, -1])
 
     _fallingSpeed = 3
@@ -93,33 +107,44 @@ def Update(deltaTime):
     global _order
     global _pos
 
-
     if not UICommon.Paused:
         _pos[1] -= _fallingSpeed * deltaTime
         if _pos[1] <= -5:  # If height of the block <= -5
-            UICommon.Blocks[_order[0]].visible = False
+            UICommon.Blocks[_order[-1]].visible = False
             _collectedBlock.append(_curBlock)
             _curBlock.position = _pos
             _curBlock.position[1] = -5
             print(_curBlock.position)
-            _curBlock = _blocks[_order.pop(0)]  # Get new block
-            _nextBlock = _blocks[_order[0]]  # Set next block
-            # print("Next:" + _nextBlock.__class__.__name__)
-            UICommon.Blocks[_order[0]].visible = True
-            _order.append(random.randint(0, 6))  # Append new block to order
+            newBlock = random.randint(0, 6)
+            _order.append(newBlock)
+            if newBlock == 0:
+                _blocks.append(JBlock())
+            if newBlock == 1:
+                _blocks.append(LBlock())
+            if newBlock == 2:
+                _blocks.append(ZBlock())
+            if newBlock == 3:
+                _blocks.append(SBlock())
+            if newBlock == 4:
+                _blocks.append(TBlock())
+            if newBlock == 5:
+                _blocks.append(IBlock())
+            if newBlock == 6:
+                _blocks.append(OBlock())
+            _curBlock = _blocks[-2]  # Get new block
+            _nextBlock = _blocks[-1]  # Set next block
+            UICommon.Blocks[_order[-1]].visible = True
             _pos[1] = 7  # Reset block to top
             UICommon.Score += 40
-    #a single line clear is worth 40 points, clearing four lines at once (known as a Tetris) is worth 1200 4*4 lines 36000
-    #Score update
+    # a single line clear is worth 40 points, clearing four lines at once (known as a Tetris) is worth 1200 4*4 lines 36000
+    # Score update
     Score = UI.GetElementByName("score")
     Score.text = str(UICommon.Score)
-        # # make it collect at bottom
-        # if _pos[1] < -5: #Change -5 into piece height later
-        #     _pos[1] = -5
+    # # make it collect at bottom
+    # if _pos[1] < -5: #Change -5 into piece height later
+    #     _pos[1] = -5
 
     _curBlock.Update(deltaTime)
-    
-    
 
 
 def Render():
@@ -143,8 +168,6 @@ def Render():
     if _rotationZ:
         _worldQuat = _worldQuat.mult(_rotationZQuat)
         _rotationZ = False
-
-    
 
     if not UICommon.Paused:
         m = glGetDouble(GL_MODELVIEW_MATRIX)
