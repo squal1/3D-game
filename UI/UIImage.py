@@ -62,39 +62,6 @@ class UIImage():
             """, GL_FRAGMENT_SHADER)
         self.shader = shaders.compileProgram(VERTEX_SHADER, FRAGMENT_SHADER)
 
-        # Enable alpha blending
-        
-
-
-        # glVertexAttribPointer(vertex_position_attribute_location, 2, GL_FLOAT, GL_FALSE, np.ndarray.ctypes.__sizeof__(np.ndarray.ctypes.c_float)*4)
-        # vertex attributes need to be enabled
-        # glVertexAttribPointer(vertex_position_attribute_location, 2, GL_FLOAT, GL_FALSE, sizeof(c_float)*4, c_void_p(0))
-        # glEnableVertexAttribArray(0)
-        # glVertexAttribPointer(uv_attribute_location, 2, GL_FLOAT, GL_FALSE, self.vbo)
-        # # glVertexAttribPointer(uv_attribute_location, 2, GL_FLOAT, GL_FALSE, sizeof(c_float)*4, c_void_p(sizeof(c_float)*2))
-        # glEnableVertexAttribArray(1)
-
-        # Generate: request a texture
-        # self.image_texture = glGenTextures(1)
-
-        # glBindTexture(GL_TEXTURE_2D, self.image_texture)
-
-        # self.image_data = pygame.image.tostring(self.image, "RGBA", True)
-
-        # # Modify: Tell OpenGL to load data into the image
-        # mip_map_level = 0
-        # glTexImage2D(GL_TEXTURE_2D, mip_map_level, GL_RGBA, self.width, self.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, self.image_data)
-
-        # # set the filtering mode for the texture
-        # glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
-        # glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
-        # # Enable alpha blending
-        # glEnable(GL_BLEND)
-        # glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-
-        # glUseProgram(self.shader)
-
-        
     
     def _DrawImage(self):
         self.vbo = glGenBuffers(1)

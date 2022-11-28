@@ -48,19 +48,19 @@ class TBlock(TetrisPieces):
 
 class SBlock(TetrisPieces):
     def __init__(self):
-        components = [Cube("Red", np.asfarray([2, 2, 0])),
-                      Cube("Red", np.asfarray([0, 2, 0])),
-                      Cube("Red", np.asfarray([0, 0, 0])),
-                      Cube("Red", np.asfarray([-2, 0, 0]))]
+        components = [Cube("Green", np.asfarray([2, 2, 0])),
+                      Cube("Green", np.asfarray([0, 2, 0])),
+                      Cube("Green", np.asfarray([0, 0, 0])),
+                      Cube("Green", np.asfarray([-2, 0, 0]))]
         super().__init__(components)
 
 
 class ZBlock(TetrisPieces):
     def __init__(self):
-        components = [Cube("Green", np.asfarray([-2, 2, 0])),
-                      Cube("Green", np.asfarray([0, 2, 0])),
-                      Cube("Green", np.asfarray([0, 0, 0])),
-                      Cube("Green", np.asfarray([2, 0, 0]))]
+        components = [Cube("Red", np.asfarray([-2, 2, 0])),
+                      Cube("Red", np.asfarray([0, 2, 0])),
+                      Cube("Red", np.asfarray([0, 0, 0])),
+                      Cube("Red", np.asfarray([2, 0, 0]))]
         super().__init__(components)
 
 
