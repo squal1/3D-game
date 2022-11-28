@@ -37,7 +37,7 @@ class UIImage():
         elif self.valign == "bottom":
             self.y = 0 + yoffset
         
-
+        self.verts = np.float32([-1, -1, 0, 0,  -1, 1, 0, 1,  1, 1, 1, 1,  -1, -1, 0, 0,  1, 1, 1, 1,  1, -1, 1, 0])
         
         VERTEX_SHADER = shaders.compileShader("""#version 330
             layout(location = 0) in vec2 pos;
@@ -62,15 +62,9 @@ class UIImage():
     
     def _DrawImage(self):
         self.vbo = glGenBuffers(1)
-
         glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
-        
-        self.verts = np.float32([-1, -1, 0, 0,  -1, 1, 0, 1,  1, 1, 1, 1,  -1, -1, 0, 0,  1, 1, 1, 1,  1, -1, 1, 0])
         glBufferData(GL_ARRAY_BUFFER, self.verts, GL_DYNAMIC_DRAW)
         
-        # self.shader = shaders.compileProgram(VERTEX_SHADER, FRAGMENT_SHADER)
-        # self.vbo = vbo.VBO(self.verts)
-        # glBufferData(GL_ARRAY_BUFFER, self.verts, GL_STATIC_DRAW)
         vertex_position_attribute_location = 0
         uv_attribute_location = 1
 
@@ -85,7 +79,7 @@ class UIImage():
 
         self.image_data = pygame.image.tostring(self.image, "RGBA", True)
 
-        # Tell OpenGL to load data into the image
+        #load data into the image
         mip_map_level = 0
         glTexImage2D(GL_TEXTURE_2D, mip_map_level, GL_RGBA, self.width, self.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, self.image_data)
 

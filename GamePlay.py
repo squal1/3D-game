@@ -106,17 +106,18 @@ def Update(deltaTime):
             UICommon.Blocks[_order[0]].visible = True
             _order.append(random.randint(0, 6))  # Append new block to order
             _pos[1] = 7  # Reset block to top
+            UICommon.Score += 1
             
-        
+    #Score update
+    Score = UI.GetElementByName("score")
+    Score.text = str(UICommon.Score)
         # # make it collect at bottom
         # if _pos[1] < -5: #Change -5 into piece height later
         #     _pos[1] = -5
 
     _curBlock.Update(deltaTime)
     
-    ##Score update
-    # Score = UI.GetElementByName("score")
-    # Score.text = str(score)
+    
 
 
 def Render():
