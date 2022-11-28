@@ -43,8 +43,7 @@ def init():
     # _uiObjects.append(J)
     # _uiObjects.append(L)
     
-    UICommon.Blocks = [J, L, Z, S,
-               T, I, O]
+    UICommon.Blocks = [J, L, Z, S, T, I, O]
 
 
 def Update(deltaTime):
@@ -55,10 +54,8 @@ def Update(deltaTime):
         i.Update(deltaTime)
         if UICommon.Paused:
             i.visible = False
-            _paused.visible = True
         else:
             i.visible = True
-            _paused.visible = False
     for i in UICommon.Blocks:
         i.Update(deltaTime)
         # print(i.path + str(i.visible))

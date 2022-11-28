@@ -98,16 +98,18 @@ def Update(deltaTime):
         _pos[1] -= _fallingSpeed * deltaTime
         if _pos[1] <= -5:  # If height of the block <= -5
             UICommon.Blocks[_order[0]].visible = False
-            # _collectedBlock.append(_curBlock)
-            
+            _collectedBlock.append(_curBlock)
+            _curBlock.position = _pos
+            _curBlock.position[1] = -5
+            print(_curBlock.position)
             _curBlock = _blocks[_order.pop(0)]  # Get new block
             _nextBlock = _blocks[_order[0]]  # Set next block
             # print("Next:" + _nextBlock.__class__.__name__)
             UICommon.Blocks[_order[0]].visible = True
             _order.append(random.randint(0, 6))  # Append new block to order
             _pos[1] = 7  # Reset block to top
-            UICommon.Score += 1
-            
+            UICommon.Score += 40
+    #a single line clear is worth 40 points, clearing four lines at once (known as a Tetris) is worth 1200 4*4 lines 36000
     #Score update
     Score = UI.GetElementByName("score")
     Score.text = str(UICommon.Score)
@@ -142,11 +144,15 @@ def Render():
         _worldQuat = _worldQuat.mult(_rotationZQuat)
         _rotationZ = False
 
-    m = glGetDouble(GL_MODELVIEW_MATRIX)
-    glTranslatef(*_pos)
-    glMultMatrixf(_worldQuat.getRotMat4())
+    
+
     if not UICommon.Paused:
+        m = glGetDouble(GL_MODELVIEW_MATRIX)
+        glTranslatef(*_pos)
+        glMultMatrixf(_worldQuat.getRotMat4())
         _curBlock.Render()
         # for i in _collectedBlock:
+        #     # print(i.position)
+        #     glTranslatef(*i.position)
         #     i.Render()
-    glLoadMatrixf(m)
+        glLoadMatrixf(m)
