@@ -26,6 +26,7 @@ def Init():
     global _rotationXQuat
     global _rotationYQuat
     global _rotationZQuat
+    global _rotationOrder
 
     _worldQuat = Quaternion()
     _rotationXQuat = Quaternion().setRotationQuat(np.asfarray([1, 0, 0]), 90.0)
@@ -34,6 +35,7 @@ def Init():
     _rotationX = False
     _rotationY = False
     _rotationZ = False
+    _rotationOrder = []
 
     _blocks = []
     _order = [0, 1, 2, 3, 4, 5, 6]
@@ -60,7 +62,7 @@ def Init():
     _collectedBlock = []
     print("Next:" + _nextBlock.__class__.__name__)
     UICommon.Blocks[_order[-1]].visible = True
-    _pos = np.asfarray([-1, 7, -1])
+    _pos = np.asfarray([1, 7, -1])
 
     _fallingSpeed = 3
 
@@ -106,15 +108,31 @@ def Update(deltaTime):
     global _nextBlock
     global _order
     global _pos
+    global _rotationOrder
 
     if not UICommon.Paused:
         _pos[1] -= _fallingSpeed * deltaTime
         if _pos[1] <= -5:  # If height of the block <= -5
             UICommon.Blocks[_order[-1]].visible = False
+            # Compute rotation
+            x = _pos[0]
+            y = -5
+            z = _pos[2]
+            for rotation in _rotationOrder[::-1]:
+                if rotation == "x":
+                    y, z = -z, y
+                elif rotation == "y":
+                    z, x = -x, z
+                elif rotation == "z":
+                    x, y = -y, x
+            _rotationOrder = []
+            for component in _curBlock.components:
+                # Fix position of the block
+                component.pos += [x, y, z]
+                print(component.pos)
+            _rotationOrder = []
             _collectedBlock.append(_curBlock)
-            _curBlock.position = _pos
-            _curBlock.position[1] = -5
-            print(_curBlock.position)
+            # Generate new block
             newBlock = random.randint(0, 6)
             _order.append(newBlock)
             if newBlock == 0:
@@ -134,7 +152,7 @@ def Update(deltaTime):
             _curBlock = _blocks[-2]  # Get new block
             _nextBlock = _blocks[-1]  # Set next block
             UICommon.Blocks[_order[-1]].visible = True
-            _pos[1] = 7  # Reset block to top
+            _pos = np.asfarray([1, 7, -1])  # Set new block position
             UICommon.Score += 40
     # a single line clear is worth 40 points, clearing four lines at once (known as a Tetris) is worth 1200 4*4 lines 36000
     # Score update
@@ -158,24 +176,26 @@ def Render():
     global _rotationXQuat
     global _rotationYQuat
     global _rotationZQuat
+    global _rotationOrder
 
+    # Apply rotation
     if _rotationX:
-        _worldQuat = _worldQuat.mult(_rotationXQuat)
+        _curBlock.quat = _curBlock.quat.mult(_rotationXQuat)
+        _rotationOrder.append("x")
         _rotationX = False
     if _rotationY:
-        _worldQuat = _worldQuat.mult(_rotationYQuat)
+        _curBlock.quat = _curBlock.quat.mult(_rotationYQuat)
+        _rotationOrder.append("y")
         _rotationY = False
     if _rotationZ:
-        _worldQuat = _worldQuat.mult(_rotationZQuat)
+        _curBlock.quat = _curBlock.quat.mult(_rotationZQuat)
+        _rotationOrder.append("z")
         _rotationZ = False
 
     if not UICommon.Paused:
+        for block in _collectedBlock:
+            block.Render()
         m = glGetDouble(GL_MODELVIEW_MATRIX)
         glTranslatef(*_pos)
-        glMultMatrixf(_worldQuat.getRotMat4())
         _curBlock.Render()
-        # for i in _collectedBlock:
-        #     # print(i.position)
-        #     glTranslatef(*i.position)
-        #     i.Render()
         glLoadMatrixf(m)

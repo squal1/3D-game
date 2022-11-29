@@ -1,12 +1,14 @@
 from OpenGL.GL import *
 import numpy as np
 from Cube import Cube
+from Quaternion import Quaternion
 
 
 class TetrisPieces:
     def __init__(self, components):
         self.components = components
         self.pos = np.asfarray([0, 0, 0])
+        self.quat = Quaternion()
 
     def Update(self, deltaTime):
         for component in self.components:
@@ -14,6 +16,7 @@ class TetrisPieces:
 
     def Render(self):
         m = glGetDouble(GL_MODELVIEW_MATRIX)
+        glMultMatrixf(self.quat.getRotMat4())
         for component in self.components:
             component.Render()
         glLoadMatrixf(m)
@@ -21,10 +24,10 @@ class TetrisPieces:
 
 class IBlock(TetrisPieces):
     def __init__(self):
-        components = [Cube("LightBlue", np.asfarray([-2, 0, 0])),
+        components = [Cube("LightBlue", np.asfarray([-4, 0, 0])),
+                      Cube("LightBlue", np.asfarray([-2, 0, 0])),
                       Cube("LightBlue", np.asfarray([0, 0, 0])),
-                      Cube("LightBlue", np.asfarray([2, 0, 0])),
-                      Cube("LightBlue", np.asfarray([4, 0, 0]))]
+                      Cube("LightBlue", np.asfarray([2, 0, 0]))]
         super().__init__(components)
 
 
